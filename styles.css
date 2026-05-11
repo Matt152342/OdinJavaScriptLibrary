@@ -20,6 +20,7 @@ body {
     gap: 20px;
 }
 
+/* HEADER */
 .header {
     height: auto;
     width: 100%;
@@ -32,20 +33,15 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
 }
 
 .heading {
     font-size: 36px;
-
-    flex: 1 1 auto;
 }
 
-.headerInputs {
-    flex: 3 1 auto;
-}
-
+/* MAIN */
 .main {
     height: auto;
     width: clamp(350px, 80%, 100%);
@@ -54,4 +50,26 @@ body {
 
     flex: 10 1 auto;
     align-self: center;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.addBookBtn {
+    flex: 0.5 1 auto;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.bookGrid {
+    flex: 10 1 auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
 }

@@ -11,3 +11,4 @@ Book.prototype.addBookToLibrary = function (bookName, bookAuthor, bookID) {
     library.push(book);
     console.log("Book added");
 }
+
