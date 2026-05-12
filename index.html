@@ -13,15 +13,17 @@
             <div class="heading">
                 Welcome to Library...
             </div>
-            <div class="headerInput">
-                <button class="signUpBtn">Sign Up</button>
-                <button class="logInBtn">Log in</button>
-            </div>
         </div>
 
+        <div class="addBookContainer">
+            <button commandfor="bookForm" command="show-modal" class="addBookBtn">Add Book</button>
+        </div>
+        <dialog id="bookForm">
+            <button commandfor="bookForm" command="close">Close</button>
+        </dialog>
+
         <div class="main">
-            <div class="addBookBtn"><button>Add Book</button></div>
-            <div class="bookGrid">
+            <div id="bookGrid">
                 
             </div>
         </div>

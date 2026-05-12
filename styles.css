@@ -1,4 +1,17 @@
+@font-face {
+    font-family: typewriter;
+    src: url(./font/jmh_typewriter/JMH\ Typewriter-Bold.otf);
+}
+
+:root {
+    --background: #091413;
+    --subBackground: #285A48;
+    --accent: #408A71;
+    --text: #B0E4CC;
+}
+
 * {
+    font-family: 'typewriter';
     box-sizing: border-box;
 }
 
@@ -12,12 +25,11 @@ body {
     width: auto;
     margin: 0;
     padding: 0;
+    background: var(--background);
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 20px;
+    align-items: center;
 }
 
 /* HEADER */
@@ -26,9 +38,7 @@ body {
     width: 100%;
     margin: 0;
     padding: 10px 20px 10px 20px;
-    box-shadow: 0 0 5px 0 black;
-
-    flex: 0.2 1 auto;
+    box-shadow: 0 0 5px 0 var(--accent);
 
     display: flex;
     flex-direction: row;
@@ -38,38 +48,69 @@ body {
 }
 
 .heading {
+    color: var(--text);
     font-size: 36px;
+}
+
+/* ADD BUTTON CONTAINER */
+.addBookContainer {
+    margin: 0;
+    padding: 20px;
+}
+
+.addBookBtn {
+    padding: 10px 20px;
+
+    color: var(--text);
+    background: var(--subBackground);
+    border: 3px solid var(--accent);
+    border-radius: 5px;
+    box-shadow: 0 0 8px var(--accent);
+}
+
+.addBookBtn:hover {
+    cursor: pointer;
+    color: var(--background);
+    background: var(--accent);
+    border-color: var(--subBackground);
+}
+
+.addBookBtn:active {
+    color: var(--text);
+    background: var(--background);
+    border-color: var(--text);
 }
 
 /* MAIN */
 .main {
     height: auto;
-    width: clamp(350px, 80%, 100%);
-    margin: 0;
+    width: 80%;
+    margin: 20px 0 0 0;
     padding: 10px;
-
-    flex: 10 1 auto;
-    align-self: center;
 
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.addBookBtn {
-    flex: 0.5 1 auto;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+#bookGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
 }
 
-.bookGrid {
-    flex: 10 1 auto;
+.bookCard {
+    padding: 10px;
 
-    display: grid;
-    grid-template-columns: repeat(3, minmax(100px, 1fr));
-    grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 10px;
+    color: var(--text);
+    font-weight: 600;
+    background: var(--subBackground);
+    border: 3px solid var(--accent);
+    border-radius: 12px;
+    box-shadow: 0 0 8px var(--accent);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
