@@ -59,6 +59,7 @@ body {
 }
 
 button {
+    margin: 10px;
     padding: 10px 20px;
 
     color: var(--text);
@@ -78,6 +79,11 @@ button:active {
     color: var(--text);
     background: var(--background);
     border-color: var(--text);
+}
+
+button.unread {
+    color: var(--background);
+    background-color: var(--text);
 }
 
 /* MAIN */

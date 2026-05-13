@@ -20,20 +20,25 @@ function createCard(book) {
     const bookAuthor = document.createElement('p');
     const bookPages = document.createElement('p');
     const removeBtn = document.createElement('button');
+    const readBtn = document.createElement('button');
     
     bookCard.classList.add('bookCard');
     bookTitle.textContent = `${book.title}`;
     bookAuthor.textContent = `By ${book.author}`;
     bookPages.textContent = `${book.numberOfPages}`;
+
     removeBtn.textContent = 'Remove';
     removeBtn.classList.add('removeBook');
     removeBtn.setAttribute('id', book.id);
+    readBtn.textContent = 'Unread';
+    readBtn.classList.add('unread');
 
     bookGrid.appendChild(bookCard);
     bookCard.appendChild(bookTitle);
     bookCard.appendChild(bookAuthor);
     bookCard.appendChild(bookPages);
     bookCard.appendChild(removeBtn);
+    bookCard.appendChild(readBtn);
 }
 
 function displayBooks() {
@@ -63,9 +68,13 @@ form.addEventListener('submit', (event) => {
 })
 
 const bookGrid = document.getElementById('bookGrid');
+
 bookGrid.addEventListener('click', (event) => {
-    if (event.target.classList.contains('removeBook')) {
-        const bookID = event.target.id;
+    const target = event.target;
+    const targetClasslist = event.target.classList;
+
+    if (targetClasslist.contains('removeBook')) {
+        const bookID = event.target.id; // the target is the button pressed
 
         for(let i = 0; i < library.length; i++) {
             if (bookID === library[i].id) {
@@ -74,5 +83,16 @@ bookGrid.addEventListener('click', (event) => {
             }
         }
         displayBooks();
+    }
+
+    if (targetClasslist.contains('unread')) {
+        target.textContent = 'Read';
+        targetClasslist.remove('unread');
+        targetClasslist.add('read');
+    }
+    else if (targetClasslist.contains('read')) {
+        target.textContent = 'Unread';
+        targetClasslist.remove('read');
+        targetClasslist.add('unread');
     }
 });
