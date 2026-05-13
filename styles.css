@@ -4,10 +4,10 @@
 }
 
 :root {
-    --background: #091413;
-    --subBackground: #285A48;
-    --accent: #408A71;
-    --text: #B0E4CC;
+    --background: #ECECEC;
+    --subBackground: #84934A;
+    --accent: #656D3F;
+    --text: #492828;
 }
 
 * {
@@ -58,24 +58,23 @@ body {
     padding: 20px;
 }
 
-.addBookBtn {
+button {
     padding: 10px 20px;
 
     color: var(--text);
     background: var(--subBackground);
     border: 3px solid var(--accent);
     border-radius: 5px;
-    box-shadow: 0 0 8px var(--accent);
 }
 
-.addBookBtn:hover {
+button:hover {
     cursor: pointer;
     color: var(--background);
     background: var(--accent);
     border-color: var(--subBackground);
 }
 
-.addBookBtn:active {
+button:active {
     color: var(--text);
     background: var(--background);
     border-color: var(--text);
@@ -95,7 +94,7 @@ body {
 
 #bookGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
 }
 
@@ -107,10 +106,37 @@ body {
     background: var(--subBackground);
     border: 3px solid var(--accent);
     border-radius: 12px;
-    box-shadow: 0 0 8px var(--accent);
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+/* Form */
+#formContainer {
+    height: 400px;
+    width: 300px;
+
+    color: var(--text);
+    padding: 10px;
+    background: var(--subBackground);
+    border: 3px solid var(--accent);
+    border-radius: 12px;
+}
+
+#bookForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#bookForm > input {
+    color: var(--text);
+    padding: 10px 20px;
+    background: var(--background);
+    border: 3px solid var(--accent);
+    border-radius: 12px;
 }
