@@ -8,15 +8,47 @@ class Book {
     }
 }
 
-const library = []
+class Library {
+    constructor() {
+         this.library = []
+    }
 
-function addBook(bookTitle, bookAuthor, numberOfPages, readState) {
-    const book = new Book(bookTitle, bookAuthor, numberOfPages, readState);
-    library.push(book);
-    console.log("Book added");
+    addBook(bookTitle, bookAuthor, numberOfPages, readState) {
+        const book = new Book(bookTitle, bookAuthor, numberOfPages, readState);
+        this.library.push(book);
+        console.log("Book added");
+    }
+
+    displayBooks() {
+        const bookGrid = document.getElementById('bookGrid');
+        bookGrid.innerHTML = "";
+
+        this.library.forEach((book) => {
+            createCard(book);
+        });
+    }
+
+    removeBook(bookID) {
+        for(let i = 0; i < this.library.length; i++) {
+            if (bookID === this.library[i].id) {
+                this.library.splice(i, 1);
+                break;
+            }
+        }
+        this.displayBooks();
+    }
+
+    updateReadState(bookID) {
+        const book = this.library.find((book) => book.id === bookID);
+        if (book) {
+            book.readState = !book.readState;
+            return book.readState;
+        }
+        return null
+    }
 }
 
-function createCard(book) {
+createCard = (book) => {
     const bookGrid = document.getElementById('bookGrid');
     const bookCard = document.createElement('div');
     const bookTitle = document.createElement('p');
@@ -52,14 +84,8 @@ function createCard(book) {
     bookCard.appendChild(readBtn);
 }
 
-function displayBooks() {
-    const bookGrid = document.getElementById('bookGrid');
-    bookGrid.innerHTML = "";
-
-    library.forEach((book) => {
-        createCard(book);
-    });
-}
+// Library instance of class
+const library = new Library();
 
 const form = document.getElementById('bookForm');
 const bookDialog = document.getElementById('formContainer');
@@ -70,9 +96,9 @@ form.addEventListener('submit', (event) => {
     const author = document.getElementById('author').value;
     const pages = document.getElementById('pages').value;
 
-    addBook(title, author, pages, false);
+    library.addBook(title, author, pages, false);
 
-    displayBooks(); 
+    library.displayBooks(); 
     
     bookDialog.close();
     form.reset();
@@ -86,23 +112,14 @@ bookGrid.addEventListener('click', (event) => {
     const bookID = event.target.id; // the target is the button pressed
 
     if (targetClasslist.contains('removeBook')) {
-
-        for(let i = 0; i < library.length; i++) {
-            if (bookID === library[i].id) {
-                library.splice(i, 1);
-                break;
-            }
-        }
-        displayBooks();
+        library.removeBook(bookID);
     }
 
     if (targetClasslist.contains('unread') || targetClasslist.contains('read')) {
-        const book = library.find((book) => book.id === bookID);
+        const read = library.updateReadState(bookID);
 
-        if (book) {
-            book.readState = !book.readState;
-
-            if (book.readState) {
+        if (read !== null) {
+            if (read) {
                 target.textContent = 'Read';
                 targetClasslist.remove('unread');
                 targetClasslist.add('read');
