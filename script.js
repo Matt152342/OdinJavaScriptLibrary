@@ -1,14 +1,15 @@
 const library = []
 
-function Book(title, author, numberOfPages) {
+function Book(title, author, numberOfPages, readState = false) {
     this.title = title;
     this.author = author;
     this.numberOfPages = numberOfPages;
+    this.readState = readState;
     this.id = crypto.randomUUID();
 }
 
-function addBook(bookTitle, bookAuthor, numberOfPages) {
-    const book = new Book(bookTitle, bookAuthor, numberOfPages);
+function addBook(bookTitle, bookAuthor, numberOfPages, readState) {
+    const book = new Book(bookTitle, bookAuthor, numberOfPages, readState);
     library.push(book);
     console.log("Book added");
 }
@@ -30,8 +31,16 @@ function createCard(book) {
     removeBtn.textContent = 'Remove';
     removeBtn.classList.add('removeBook');
     removeBtn.setAttribute('id', book.id);
-    readBtn.textContent = 'Unread';
-    readBtn.classList.add('unread');
+    if (book.readState === true) {
+        readBtn.textContent = 'Read';
+        readBtn.classList.add('read');
+        readBtn.setAttribute('id', book.id);
+    }
+    else if (book.readState === false) {
+        readBtn.textContent = 'Unread';
+        readBtn.classList.add('unread');
+        readBtn.setAttribute('id', book.id);
+    }
 
     bookGrid.appendChild(bookCard);
     bookCard.appendChild(bookTitle);
@@ -59,7 +68,7 @@ form.addEventListener('submit', (event) => {
     const author = document.getElementById('author').value;
     const pages = document.getElementById('pages').value;
 
-    addBook(title, author, pages);
+    addBook(title, author, pages, false);
 
     displayBooks(); 
     
@@ -72,9 +81,9 @@ const bookGrid = document.getElementById('bookGrid');
 bookGrid.addEventListener('click', (event) => {
     const target = event.target;
     const targetClasslist = event.target.classList;
+    const bookID = event.target.id; // the target is the button pressed
 
     if (targetClasslist.contains('removeBook')) {
-        const bookID = event.target.id; // the target is the button pressed
 
         for(let i = 0; i < library.length; i++) {
             if (bookID === library[i].id) {
@@ -85,14 +94,21 @@ bookGrid.addEventListener('click', (event) => {
         displayBooks();
     }
 
-    if (targetClasslist.contains('unread')) {
-        target.textContent = 'Read';
-        targetClasslist.remove('unread');
-        targetClasslist.add('read');
-    }
-    else if (targetClasslist.contains('read')) {
-        target.textContent = 'Unread';
-        targetClasslist.remove('read');
-        targetClasslist.add('unread');
+    if (targetClasslist.contains('unread') || targetClasslist.contains('read')) {
+        const book = library.find((book) => book.id === bookID);
+
+        if (book) {
+            book.readState = !book.readState;
+
+            if (book.readState) {
+                target.textContent = 'Read';
+                targetClasslist.remove('unread');
+                targetClasslist.add('read');
+            } else {
+                target.textContent = 'Unread';
+                targetClasslist.remove('read');
+                targetClasslist.add('unread');
+            }
+        }
     }
 });
