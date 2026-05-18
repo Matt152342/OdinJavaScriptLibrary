@@ -1,12 +1,14 @@
-const library = []
-
-function Book(title, author, numberOfPages, readState = false) {
-    this.title = title;
-    this.author = author;
-    this.numberOfPages = numberOfPages;
-    this.readState = readState;
-    this.id = crypto.randomUUID();
+class Book {
+    constructor(title, author, numberOfPages, readState = false) {
+        this.title = title;
+        this.author = author;
+        this.numberOfPages = numberOfPages;
+        this.readState = readState;
+        this.id = crypto.randomUUID();
+    }
 }
+
+const library = []
 
 function addBook(bookTitle, bookAuthor, numberOfPages, readState) {
     const book = new Book(bookTitle, bookAuthor, numberOfPages, readState);
