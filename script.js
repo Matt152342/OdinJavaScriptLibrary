@@ -86,7 +86,6 @@ createCard = (book) => {
 
 // Library instance of class
 const library = new Library();
-
 const form = document.getElementById('bookForm');
 const bookDialog = document.getElementById('formContainer');
 form.addEventListener('submit', (event) => {
@@ -105,7 +104,6 @@ form.addEventListener('submit', (event) => {
 })
 
 const bookGrid = document.getElementById('bookGrid');
-
 bookGrid.addEventListener('click', (event) => {
     const target = event.target;
     const targetClasslist = event.target.classList;
@@ -129,5 +127,39 @@ bookGrid.addEventListener('click', (event) => {
                 targetClasslist.add('unread');
             }
         }
+    }
+});
+
+// Set custom validation messages
+const titleInput = document.getElementById('formTitle');
+titleInput.addEventListener('invalid', (event) => {
+    if (titleInput.validity.valueMissing) {
+        titleInput.setCustomValidity("Please enter book title.");
+    }
+    else {
+        titleInput.setCustomValidity("");
+    }
+});
+
+const authorInput = document.getElementById('author');
+authorInput.addEventListener('invalid', (event) => {
+    if (authorInput.validity.valueMissing) {
+        authorInput.setCustomValidity('Enter book\'s author');
+    }
+    else {
+        authorInput.setCustomValidity("");
+    }
+});
+
+const pageInput = document.getElementById('pages');
+pageInput.addEventListener('invalid', (event) => {
+    if (pageInput.validity.valueMissing) {
+        pageInput.setCustomValidity('Enter book\'s page number.');
+    }
+    else if (pageInput.validity.badInput) {
+        pageInput.setCustomValidity('Pages has to be a number.');
+    }
+    else {
+        pageInput.setCustomValidity("");
     }
 });
